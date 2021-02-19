@@ -56,7 +56,7 @@ jobs:
           image: ${{ SECRETS.ACR_SERVER }}/$IMAGE_NAME:$IMAGE_TAG
           # Name of the Container Group Instance
           name: actions-runner
-          # registry-login-server: ${{ secrets.ACR_SERVER }}
+          registry-login-server: mmckeown7acr.azurecr.io
           # Username to log in Container Image Registry Server
           registry-username: ${{ secrets.ACR_USER }}
           # Password to log in Container Image Registry Server
