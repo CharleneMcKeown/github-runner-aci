@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: CI
+name: Build and Deploy GH Runner on ACI
 
 # Controls when the action will run. 
 on:
@@ -36,7 +36,13 @@ jobs:
       - name: Push to ACR
         run: |
           docker push ${{ secrets.ACR_SERVER }}/$IMAGE_NAME:$IMAGE_TAG
-          
+
+      - name: Azure Login
+        uses: Azure/login@v1
+        with:
+          # Paste output of `az ad sp create-for-rbac` as value of secret variable: AZURE_CREDENTIALS
+          creds: ${{ secrets.AZURE_CREDS }}
+  
       - name: Deploy to Azure Container Instances
         uses: Azure/aci-deploy@v1
         with:
