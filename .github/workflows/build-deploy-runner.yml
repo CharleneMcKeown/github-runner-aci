@@ -15,6 +15,9 @@ on:
 env:
   IMAGE_NAME: runner
   IMAGE_TAG: ${{ github.run_number }}
+  RUNNER_REPOSITORY_URL: https://github.com/CharleneMcKeown/github-runner-aci
+  RESOURCE_GROUP: mmckeown7rg
+  LOCATION: westeurope
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
@@ -46,13 +49,13 @@ jobs:
         uses: Azure/aci-deploy@v1
         with:
           # Name of the Resource Group in which the Container Instance will be created
-          resource-group: mmckeown7rg
-          location: westeurope
+          resource-group: ${{ env.RESOURCE_GROUP }}
+          location: ${{ env.LOCATION }}
           cpu: 2
           dns-name-label: mmckeown7rg${{ github.run_number }}
           # List of environment variables for the container. Space-seperated in "key=value" format
-          environment-variables: RUNNER_REPOSITORY_URL=https://github.com/CharleneMcKeown/github-runner-aci
-          image: ${{ SECRETS.ACR_SERVER }}/runner:${{ github.run_number }}
+          environment-variables: RUNNER_REPOSITORY_URL=${{ RUNNER_REPOSITORY_URL }}
+          image: ${{ SECRETS.ACR_SERVER }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
           # Name of the Container Group Instance
           name: actions-runner
           registry-login-server: ${{ SECRETS.ACR_SERVER }}
