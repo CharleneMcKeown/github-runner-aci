@@ -48,6 +48,7 @@ jobs:
         with:
           # Name of the Resource Group in which the Container Instance will be created
           resource-group: mmckeown7rg
+          location: westeurope
           cpu: 2
           dns-name-label: container_url
           # List of environment variables for the container. Space-seperated in "key=value" format
