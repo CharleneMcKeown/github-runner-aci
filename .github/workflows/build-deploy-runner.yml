@@ -47,7 +47,7 @@ jobs:
         uses: Azure/aci-deploy@v1
         with:
           # Name of the Resource Group in which the Container Instance will be created
-          resource-group: mmckeown7
+          resource-group: mmckeown7rg
           # Number of CPU Cores Required
           cpu: 2
           # List of environment variables for the container. Space-seperated in "key=value" format
