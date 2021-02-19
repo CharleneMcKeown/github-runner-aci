@@ -48,10 +48,10 @@ jobs:
         with:
           # Name of the Resource Group in which the Container Instance will be created
           resource-group: mmckeown7rg
-          # Number of CPU Cores Required
           cpu: 2
+          dns-name-label: container_url
           # List of environment variables for the container. Space-seperated in "key=value" format
-          environment-variables: RUNNER_REPOSITORY_URL=$RUNNER_REPOSITORY_URL GITHUB_TOKEN=${{ secrets.GIT_PAT }}
+          environment-variables: RUNNER_REPOSITORY_URL=$RUNNER_REPOSITORY_URL
           image: ${{ SECRETS.ACR_SERVER }}/$IMAGE_NAME:$IMAGE_TAG
           # Name of the Container Group Instance
           name: actions-runner
@@ -61,3 +61,4 @@ jobs:
           # Password to log in Container Image Registry Server
           registry-password: ${{ secrets.ACR_PASSWORD }}
           # secure-environment-variables: # optional, default is 
+          secure-environment-variables: GITHUB_TOKEN=${{ secrets.GIT_PAT }}
