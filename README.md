@@ -8,11 +8,11 @@ This repository contains the basics for registering a self hosted runner for use
 
 To use this in your own GitHub repo, you will need to create 5 secrets:
 
-ACR_SERVER - e.g. myacr.azurecr.io
-ACR_USER - e.g. myacr
-ACR_PASSWORD - access key from your ACR
-AZURE_CREDENTIALS - this is the JSON output of running `az ad sp create-for-rbac`
-GIT_PAT - a GitHub personal Access token
+- ACR_SERVER - e.g. myacr.azurecr.io
+- ACR_USER - e.g. myacr
+- ACR_PASSWORD - access key from your ACR
+- AZURE_CREDENTIALS - this is the JSON output of running `az ad sp create-for-rbac`
+- GIT_PAT - a GitHub personal Access token
 
 Additionally, the runner is registered to the repository using the env variable RUNNER_REPOSITORY_URL. Update this to your URL in the pipeline env variables -e.g. https://github.com/yourhandle/yourrepo
 
