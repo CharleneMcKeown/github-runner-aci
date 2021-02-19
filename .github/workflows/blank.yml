@@ -1,0 +1,67 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI
+
+# Controls when the action will run. 
+on:
+  # Triggers the workflow on push or pull request events but only for the main branch
+  push:
+    # branches: [ main ]
+  pull_request:
+    # branches: [ main ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+
+      - name: Azure Container Registry Login
+        uses: Azure/docker-login@v1
+        with:
+          # Container registry username
+          username: ${{ SECRETS.ACR_USER }}
+          # Container registry password
+          password: ${{ SECRETS.ACR_PASSWORD }}
+          # Container registry server url
+          login-server: ${{ SECRETS.ACR_SERVER }}
+      
+      - name: Build and push Docker images
+      # You may pin to the exact commit or the version.
+      # uses: docker/build-push-action@9379083e426e2e84abb80c8c091f5cdeb7d3fd7a
+        uses: docker/build-push-action@v2.3.0
+        with:
+          file: /Dockerfile
+          # List of build-time variables
+          build-args: -t runner
+          # List of tags
+          tags: latest
+          push: true
+
+      - name: Deploy to Azure Container Instances
+        uses: Azure/aci-deploy@v1
+        with:
+          # Name of the Resource Group in which the Container Instance will be created
+          resource-group: mmckeown7
+          # Number of CPU Cores Required
+          cpu: 2
+          # List of environment variables for the container. Space-seperated in "key=value" format
+          environment-variables: RUNNER_REPOSITORY_URL= GITHUB_TOKEN=${{ SECRETS.GitHub_PAT }}
+          image: ${{ SECRETS.ACR_SERVER }}/runner:latest
+          # Name of the Container Group Instance
+          name: actions-runner
+          registry-login-server: ${{ SECRETS.ACR_SERVER }}
+          # Username to log in Container Image Registry Server
+          registry-username: ${{ SECRETS.ACR_USER }}
+          # Password to log in Container Image Registry Server
+          registry-password: ${{ SECRETS.ACR_PASSWORD }}
+          # secure-environment-variables: # optional, default is 
