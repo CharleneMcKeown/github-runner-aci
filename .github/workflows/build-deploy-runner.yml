@@ -54,7 +54,7 @@ jobs:
           cpu: 2
           dns-name-label: mmckeown7rg${{ github.run_number }}
           # List of environment variables for the container. Space-seperated in "key=value" format
-          environment-variables: RUNNER_REPOSITORY_URL=${{ RUNNER_REPOSITORY_URL }}
+          environment-variables: RUNNER_REPOSITORY_URL=${{ env.RUNNER_REPOSITORY_URL }}
           image: ${{ SECRETS.ACR_SERVER }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
           # Name of the Container Group Instance
           name: actions-runner
