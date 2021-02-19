@@ -15,7 +15,6 @@ on:
 env:
   IMAGE_NAME: runner
   IMAGE_TAG: ${{ github.run_number }}
-  RUNNER_REPOSITORY_URL: https://github.com/CharleneMcKeown/github-runner-aci
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
@@ -52,7 +51,7 @@ jobs:
           cpu: 2
           dns-name-label: mmckeown7rg${{ github.run_number }}
           # List of environment variables for the container. Space-seperated in "key=value" format
-          environment-variables: RUNNER_REPOSITORY_URL=$RUNNER_REPOSITORY_URL
+          environment-variables: RUNNER_REPOSITORY_URL=https://github.com/CharleneMcKeown/github-runner-aci
           image: ${{ SECRETS.ACR_SERVER }}/runner:${{ github.run_number }}
           # Name of the Container Group Instance
           name: actions-runner
