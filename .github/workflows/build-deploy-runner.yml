@@ -50,7 +50,7 @@ jobs:
           resource-group: mmckeown7rg
           location: westeurope
           cpu: 2
-          dns-name-label: containerurl
+          dns-name-label: mmckeown7rg${{ github.run_number }}
           # List of environment variables for the container. Space-seperated in "key=value" format
           environment-variables: RUNNER_REPOSITORY_URL=$RUNNER_REPOSITORY_URL
           image: ${{ SECRETS.ACR_SERVER }}/$IMAGE_NAME:$IMAGE_TAG
